@@ -35,23 +35,27 @@ Close the annoying modal
 
 *** Keywords ***
 Preview the robot
-    FOR    ${i}    IN RANGE    5
-        ${preview_ok}=    Does Page Contain    id:robot-preview
+    Click Button    id:preview
+    FOR    ${i}    IN RANGE    3
+        ${preview_ok}=    Does Page Contain Element    id:robot-preview
         IF    ${preview_ok} == False
         Click Button    id:preview
         ELSE
         Log    ${preview_ok}
+        Exit For Loop If    ${preview_ok}
         END
     END
 
 *** Keywords ***
 Submit the order
-    FOR    ${i}    IN RANGE    5
+    Click Button    id:order
+    FOR    ${i}    IN RANGE    3
         ${submit_ok}=    Does Page Contain    Receipt
         IF    ${submit_ok} == False
         Click Button    id:order
         ELSE
         Log    ${submit_ok}
+        Exit For Loop If    ${submit_ok}
         END
     END
 
@@ -91,7 +95,6 @@ Add image to PDF
 *** Keywords ***
 Make another order
     Wait Until Element Is Visible   id:order-another
-    Wait Until Keyword Succeeds    2x    0.5s    Wait Until Element Is Visible    id:order-another
     Click Button    id:order-another
 
 *** Keywords ***
@@ -117,6 +120,6 @@ ZIP folder
 *** Tasks ***
 Order robots from RobotSpareBin Industries Inc
     Open the robot order website
-    Collect file from user   
+    Collect file from user
     Complete all orders
     ZIP folder
