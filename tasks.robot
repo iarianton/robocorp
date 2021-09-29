@@ -81,6 +81,7 @@ Export as a PDF
 *** Keywords ***
 Screenshot
     [Arguments]    ${order_number}
+    Wait Until Element Is Visible    id:robot-preview-image
     Capture Element Screenshot    id:robot-preview-image    ${CURDIR}${/}output${/}orders${/}${order_number}.png
     [Return]    ${CURDIR}${/}output${/}orders${/}${order_number}.png
 
